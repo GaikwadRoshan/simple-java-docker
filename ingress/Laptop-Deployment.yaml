@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laptop-service
+  labels:
+    app: laptop-service
+specs:
+  replicas: 2
+  selector:
+    matchLables:
+      app: laptop-service
+  template:
+    metadata:
+      labels:
+        app: laptop-service
+    spec:
+      containers:
+      - name: laptop-service
+        image: gaikwadroshan/laptop
+        ports:
+        - containerPort: 80
+      
+  ---
+  apiVersion: v1
+  kind: service
+  metadata:
+    name: laptop-service
+  spec:
+    selector:
+      app: laptop-service
+    ports:
+    - protocol: TCP
+      port: 80
